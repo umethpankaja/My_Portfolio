@@ -493,6 +493,141 @@
             transform: translateY(-2px);
         }
 
+        /* 🤖 CHATBOT FLOATING WIDGET STYLES */
+        .chatbot-wrapper {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 99999;
+        }
+
+        .chatbot-toggle-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #2ecc71;
+            color: #08090c;
+            border: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.6);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-toggle-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 0 30px rgba(46, 204, 113, 0.9);
+        }
+
+        .chatbot-box {
+            width: 320px;
+            height: 420px;
+            background: rgba(11, 12, 16, 0.95);
+            border: 1px solid #2ecc71;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 15px rgba(46, 204, 113, 0.3);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: absolute;
+            bottom: 75px;
+            right: 0;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-box.hidden {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .chatbot-header {
+            background: rgba(46, 204, 113, 0.15);
+            border-bottom: 1px solid rgba(46, 204, 113, 0.3);
+            padding: 0.8rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #2ecc71;
+            font-weight: 700;
+        }
+
+        .chatbot-close-btn {
+            background: transparent;
+            border: none;
+            color: #66fcf1;
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.88rem;
+        }
+
+        .chat-msg {
+            padding: 8px 12px;
+            border-radius: 8px;
+            max-width: 80%;
+            line-height: 1.4;
+        }
+
+        .bot-msg {
+            background: rgba(25, 32, 42, 0.9);
+            color: #66fcf1;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            align-self: flex-start;
+        }
+
+        .user-msg {
+            background: #2ecc71;
+            color: #08090c;
+            font-weight: 600;
+            align-self: flex-end;
+        }
+
+        .chatbot-input-container {
+            display: flex;
+            padding: 8px;
+            border-top: 1px solid rgba(46, 204, 113, 0.3);
+            background: rgba(11, 12, 16, 0.8);
+        }
+
+        .chatbot-input-container input {
+            flex: 1;
+            background: transparent;
+            border: 1px solid rgba(46, 204, 113, 0.4);
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: #ffffff;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .chatbot-input-container input:focus {
+            border-color: #2ecc71;
+        }
+
+        .chatbot-input-container button {
+            background: #2ecc71;
+            color: #08090c;
+            border: none;
+            padding: 0 12px;
+            margin-left: 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
         .social-links { margin-top: 1rem; }
 
         .social-links a {
@@ -561,7 +696,7 @@
 
                 <!-- 👁️ VIEW & DOWNLOAD CV BUTTONS -->
                 <a href="Black White Minimalist CV Resume.pdf" target="_blank" class="btn"><i class="fas fa-eye"></i> View CV</a>
-          
+                
             </div>
             <div class="about-image-container">
                 <img src="umeth11.png" alt="Professional Photo" class="profile-img">
@@ -662,14 +797,14 @@
             </div>
         </section>
 
-        <!-- 🏆 CERTIFICATIONS & ACHIEVEMENTS (UPDATED WITH SQL COURSE & VIEW BUTTON) -->
+        <!-- 🏆 CERTIFICATIONS & ACHIEVEMENTS -->
         <section id="achievements">
             <h2>CERTIFICATIONS & ACHIEVEMENTS</h2>
             <ul>
                 <li>Active Undergraduate Student at SLTC Research University</li>
                 <li>Completed Data Science & Analytics Fundamentals Workshop</li>
                 <li>Completed SQL for Data Science Course 
-                    <a href="sql certificate.pdf" target="_blank" class="cert-btn">
+                    <a href="SQL_Certificate.pdf" target="_blank" class="cert-btn">
                         <i class="fas fa-external-link-alt"></i> View Certificate
                     </a>
                 </li>
@@ -698,12 +833,42 @@
 
     </div>
 
+    <!-- 💬 FLOATING CHATBOT WIDGET -->
+    <div class="chatbot-wrapper">
+        <!-- Floating Chat Icon Button -->
+        <button id="chatbot-toggle-btn" class="chatbot-toggle-btn">
+            <i class="fas fa-robot"></i>
+        </button>
+
+        <!-- Chat Window Box -->
+        <div id="chatbot-box" class="chatbot-box hidden">
+            <div class="chatbot-header">
+                <div class="chatbot-title">
+                    <i class="fas fa-robot"></i> Umeth's AI Assistant
+                </div>
+                <button id="chatbot-close-btn" class="chatbot-close-btn">&times;</button>
+            </div>
+            
+            <div id="chatbot-messages" class="chatbot-messages">
+                <div class="chat-msg bot-msg">
+                    👋 Hi! I'm Umeth's Portfolio Bot. How can I help you today?
+                </div>
+            </div>
+
+            <div class="chatbot-input-container">
+                <input type="text" id="chatbot-input" placeholder="Type a message or question..." autocomplete="off">
+                <button id="chatbot-send-btn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>&lt; Developed by UMETH PANKAJA &copy; 2026 /&gt;</p>
     </footer>
 
-    <!-- 🟢 [MOUSE ANIMATION JAVASCRIPT] -->
+    <!-- 🟢 [MOUSE ANIMATION & SMART CHATBOT JAVASCRIPT] -->
     <script>
+        // Mouse Trail Effect
         document.addEventListener('mousemove', function(e) {
             const cube = document.createElement('div');
             cube.className = 'cube-trail';
@@ -715,6 +880,71 @@
                 cube.remove();
             }, 800);
         });
+
+        // 🤖 CHATBOT INTERACTIVE LOGIC
+        const toggleBtn = document.getElementById('chatbot-toggle-btn');
+        const closeBtn = document.getElementById('chatbot-close-btn');
+        const chatBox = document.getElementById('chatbot-box');
+        const sendBtn = document.getElementById('chatbot-send-btn');
+        const chatInput = document.getElementById('chatbot-input');
+        const chatMessages = document.getElementById('chatbot-messages');
+
+        toggleBtn.addEventListener('click', () => chatBox.classList.toggle('hidden'));
+        closeBtn.addEventListener('click', () => chatBox.classList.add('hidden'));
+
+        function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            // User Message
+            appendMessage(text, 'user-msg');
+            chatInput.value = '';
+
+            // Bot Auto Response
+            setTimeout(() => {
+                const reply = getBotReply(text.toLowerCase());
+                appendMessage(reply, 'bot-msg');
+            }, 600);
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        function appendMessage(text, className) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `chat-msg ${className}`;
+            msgDiv.innerHTML = text;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function getBotReply(msg) {
+            const words = msg.split(/\s+/);
+
+            if (msg.includes('school') || msg.includes('college') || msg.includes('aloysius')) {
+                return "Umeth studied at St. Aloysius' College for his secondary education!";
+            } else if (msg.includes('university') || msg.includes('sltc') || msg.includes('degree') || msg.includes('study')) {
+                return "He is currently pursuing a BSc (Hons) in Data Science at SLTC Research University.";
+            } else if (msg.includes('skill') || msg.includes('technolog') || msg.includes('stack') || msg.includes('know')) {
+                return "Umeth is skilled in Python, SQL/MySQL, HTML5, CSS3, Java, Data Analysis, and Machine Learning.";
+            } else if (msg.includes('experience') || msg.includes('job') || msg.includes('work') || msg.includes('orel')) {
+                return "Umeth has 1 year of professional experience as an Associate at Orel IT.";
+            } else if (msg.includes('project') || msg.includes('hotel') || msg.includes('github')) {
+                return "You can check his Hotel Management System and Cyber Portfolio Website projects in the Projects section or on GitHub!";
+            } else if (msg.includes('contact') || msg.includes('email') || msg.includes('phone') || msg.includes('mobile') || msg.includes('whatsapp') || msg.includes('call')) {
+                return "You can email Umeth at umethpankaja@gmail.com, call 0771559327, or use the WhatsApp button in the Contact section!";
+            } else if (msg.includes('cv') || msg.includes('resume')) {
+                return "You can view or download Umeth's CV using the buttons in the About section!";
+            } else if (msg.includes('who is') || msg.includes('about') || msg.includes('age') || msg.includes('details')) {
+                return "Umeth Pankaja is a 21-year-old Data Science Undergraduate at SLTC with 1 year of IT experience at Orel IT.";
+            } else if (words.includes('hi') || words.includes('hello') || words.includes('hey')) {
+                return "Hello! How can I assist you with Umeth's portfolio?";
+            } else {
+                return "Feel free to ask about Umeth's School, University, Skills, Experience, Projects, CV, or Contact info!";
+            }
+        }
     </script>
 
 </body>
