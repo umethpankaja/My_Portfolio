@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Portfolio | Data Science Edition</title>
+    <!-- 🔤 GOOGLE FONTS & FONT AWESOME (Tech Icons සඳහා) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* Global Styles & Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 🟢 FULL IMAGE NEON GLOW ANIMATION */
+        @keyframes boxGlow {
+            0% { 
+                box-shadow: 0 0 10px #2ecc71, 0 0 20px rgba(46, 204, 113, 0.4); 
+                border-color: #2ecc71;
+            }
+            50% { 
+                box-shadow: 0 0 25px #2ecc71, 0 0 40px rgba(46, 204, 113, 0.7); 
+                border-color: #66fcf1;
+            }
+            100% { 
+                box-shadow: 0 0 10px #2ecc71, 0 0 20px rgba(46, 204, 113, 0.4); 
+                border-color: #2ecc71;
+            }
+        }
+
+        /* 🌌 BACKGROUND ANIMATION - Floating Neon Glowing Spheres */
+        .bg-glow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .glowing-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.35;
+            animation: floatOrb 12s infinite ease-in-out alternate;
+        }
+
+        .orb-1 {
+            width: 350px;
+            height: 350px;
+            background: #2ecc71; /* Neon Green Glow */
+            top: 10%;
+            left: 15%;
+            animation-duration: 14s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: #00f2fe; /* Cyber Cyan Glow */
+            bottom: 15%;
+            right: 10%;
+            animation-duration: 18s;
+        }
+
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: #2ecc71;
+            bottom: 30%;
+            left: 20%;
+            animation-duration: 10s;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(60px, -80px) scale(1.2); }
+            100% { transform: translate(-40px, 50px) scale(0.9); }
+        }
+
+        /* 🟢 MOUSE ANIMATION CSS */
+        .cube-trail {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: transparent;
+            border: 2px solid #2ecc71;
+            box-shadow: 0 0 10px #2ecc71, 0 0 20px #2ecc71;
+            pointer-events: none;
+            transform: translate(-50%, -50%) rotate(45deg);
+            z-index: 9999;
+            animation: fadeAndShrink 0.8s forwards ease-out;
+        }
+
+        @keyframes fadeAndShrink {
+            0% { opacity: 1; transform: translate(-50%, -50%) rotate(45deg) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) rotate(225deg) scale(0.1); }
+        }
+
+        body {
+            font-family: 'Fira Code', monospace;
+            font-weight: 500;
+            background-color: #08090c;
+            color: #d1d2d3;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        /* 📌 STICKY NAVIGATION BAR */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(11, 12, 16, 0.95);
+            border-bottom: 1px solid rgba(46, 204, 113, 0.4);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 0.8rem 1rem;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav a {
+            color: #66fcf1;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(46, 204, 113, 0.4);
+            border-radius: 6px;
+            background: rgba(11, 12, 16, 0.6);
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 0 5px rgba(46, 204, 113, 0.1);
+        }
+
+        nav a:hover {
+            color: #0b0c10;
+            background: #2ecc71;
+            border-color: #2ecc71;
+            box-shadow: 0 0 15px #2ecc71;
+            transform: translateY(-2px);
+        }
+
+        /* 🌐 Header / Hero Section */
+        header {
+            position: relative;
+            background: rgba(11, 12, 16, 0.85);
+            border-bottom: 2px solid #2ecc71;
+            border-top: 1px solid rgba(46, 204, 113, 0.3);
+            box-shadow: inset 0 0 30px rgba(46, 204, 113, 0.2);
+            padding: 4rem 2rem;
+            animation: fadeIn 1s ease-out;
+            backdrop-filter: blur(12px);
+            scroll-margin-top: 80px;
+            overflow: hidden;
+        }
+
+        .about-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2.5rem;
+        }
+
+        .about-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        .about-text h1 {
+            color: #ffffff;
+            margin: 0 0 0.5rem 0;
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .about-text h1 span { color: #2ecc71; }
+
+        .about-text .tagline {
+            color: #2ecc71;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 1.5px;
+            display: block;
+        }
+
+        .about-text p {
+            color: #66fcf1;
+            font-size: 1.05rem;
+            font-weight: 500;
+            line-height: 1.7;
+            margin: 0 0 1.5rem 0;
+        }
+
+        /* Moving Cyber Grid Effect inside Header */
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200%;
+            background-image: 
+                linear-gradient(rgba(46, 204, 113, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(46, 204, 113, 0.15) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: 0;
+            pointer-events: none;
+            animation: gridMove 8s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-30px); }
+        }
+
+        header * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 📸 FULL PROFILE IMAGE STYLING */
+        .about-image-container { flex-shrink: 0; }
+
+        .profile-img {
+            width: 220px;
+            height: auto;
+            border-radius: 12px;
+            border: 2px solid #2ecc71;
+            object-fit: contain;
+            margin: 0;
+            animation: boxGlow 3s infinite ease-in-out;
+            transition: transform 0.3s ease;
+            display: block;
+        }
+
+        .profile-img:hover { transform: scale(1.03); }
+
+        /* Mobile Layout */
+        @media (max-width: 768px) {
+            .about-wrapper {
+                flex-direction: column-reverse;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            .about-text { text-align: center; }
+            .about-text h1 { font-size: 2.2rem; }
+            .profile-img { width: 180px; }
+        }
+
+        /* 📦 CONTAINER FOR SECTIONS */
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            position: relative;
+        }
+
+        /* 📦 SECTIONS & CARDS STYLE */
+        section {
+            background: rgba(25, 32, 42, 0.65);
+            backdrop-filter: blur(12px);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(46, 204, 113, 0.35);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(46, 204, 113, 0.1);
+            animation: fadeIn 1.2s ease-out;
+            transition: all 0.4s ease;
+            scroll-margin-top: 90px;
+        }
+
+        section:hover {
+            transform: translateY(-10px) scale(1.04);
+            border-color: #2ecc71;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.95), 0 0 30px rgba(46, 204, 113, 0.45);
+        }
+
+        h2 {
+            color: #2ecc71;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: 0;
+            border-bottom: 2px dashed #2ecc71;
+            padding-bottom: 0.5rem;
+        }
+
+        .card {
+            background: rgba(11, 12, 16, 0.75);
+            border-left: 4px solid #2ecc71;
+            border-top: 1px solid rgba(46, 204, 113, 0.2);
+            border-right: 1px solid rgba(46, 204, 113, 0.2);
+            border-bottom: 1px solid rgba(46, 204, 113, 0.2);
+            padding: 1.2rem;
+            margin: 1.2rem 0;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            background: rgba(21, 26, 33, 0.95);
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.4);
+            transform: scale(1.03) translateX(8px);
+        }
+
+        .card h3 {
+            color: #ffffff;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        /* 📌 PROJECT HEADER & GITHUB BUTTON */
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.8rem;
+        }
+
+        .project-icon {
+            font-size: 1.4rem;
+            background: rgba(46, 204, 113, 0.15);
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+        }
+
+        .project-description {
+            color: #d1d2d3;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* 🟦 View on GitHub Full Button Style */
+        .github-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+            padding: 0.7rem 0;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 1rem;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .github-btn:hover {
+            background: #2ecc71;
+            color: #08090c;
+            box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
+            transform: translateY(-2px);
+        }
+
+        strong { color: #ffffff; font-weight: 700; }
+
+        /* 🛠️ SKILLS BADGES STYLING */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .skill-badge {
+            background: rgba(11, 12, 16, 0.85);
+            border: 1px solid #2ecc71;
+            color: #66fcf1;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-badge:hover {
+            background: #2ecc71;
+            color: #0b0c10;
+            box-shadow: 0 0 12px #2ecc71;
+        }
+
+        ul { list-style-type: none; padding: 0; }
+
+        ul li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 20px;
+            font-weight: 600;
+        }
+
+        ul li::before {
+            content: "➔";
+            position: absolute;
+            left: 0;
+            color: #2ecc71;
+        }
+
+        /* 📜 MINI CERTIFICATE BUTTON */
+        .cert-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-decoration: none;
+            margin-left: 8px;
+            transition: all 0.3s ease;
+            vertical-align: middle;
+        }
+
+        .cert-btn:hover {
+            background: #2ecc71;
+            color: #08090c;
+            box-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+        }
+
+        /* Buttons & Links */
+        .btn {
+            display: inline-block;
+            background: transparent;
+            color: #2ecc71;
+            border: 2px solid #2ecc71;
+            padding: 0.8rem 1.8rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(46, 204, 113, 0.2);
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            background: #2ecc71;
+            color: #0b0c10;
+            box-shadow: 0 0 20px #2ecc71;
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+
+        /* 💬 WHATSAPP BUTTON STYLING */
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #25d366;
+            color: #ffffff !important;
+            border: 1px solid #25d366;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(37, 211, 102, 0.3);
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        .whatsapp-btn:hover {
+            background: #1eb853;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .social-links { margin-top: 1rem; }
+
+        .social-links a {
+            display: inline-block;
+            margin-right: 15px;
+            margin-bottom: 10px;
+            color: #66fcf1;
+            text-decoration: none;
+            font-weight: 700;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+            background: rgba(11, 12, 16, 0.6);
+        }
+
+        .social-links a:hover {
+            color: #2ecc71;
+            border-color: #2ecc71;
+            background: rgba(46, 204, 113, 0.15);
+            box-shadow: 0 0 12px rgba(46, 204, 113, 0.4);
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(11, 12, 16, 0.9);
+            color: #45f3ff;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border-top: 1px solid #1f2833;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🌌 BACKGROUND ANIMATION ELEMENTS -->
+    <div class="bg-glow-container">
+        <div class="glowing-orb orb-1"></div>
+        <div class="glowing-orb orb-2"></div>
+        <div class="glowing-orb orb-3"></div>
+    </div>
+
+    <!-- 📌 NAVIGATION BAR (Button Styled Links) -->
+    <nav>
+        <a href="#about"> ABOUT</a>
+        <a href="#skills"> SKILLS</a>
+        <a href="#experience"> EXPERIENCE</a>
+        <a href="#education"> EDUCATION</a>
+        <a href="#projects"> PROJECTS</a>
+        <a href="#achievements"> ACHIEVEMENTS</a>
+        <a href="#contact">CONTACT</a>
+    </nav>
+
+    <!-- 🌐 ABOUT SECTION (Text Left / Image Right) -->
+    <header id="about">
+        <div class="about-wrapper">
+            <div class="about-text">
+                <span class="tagline">// DATA SCIENCE UNDERGRADUATE</span>
+                <h1>Hello I'm <span>Umeth Pankaja</span></h1>
+                <p>
+                    A 21-year-old passionate Data Science Undergraduate at SLTC Research University. Specialized in Data Analysis, Machine Learning, and Predictive Analytics, with a drive to extract actionable insights from complex data.
+                </p>
+
+                <!-- 👁️ VIEW & DOWNLOAD CV BUTTONS -->
+                <a href="Black White Minimalist CV Resume.pdf" target="_blank" class="btn"><i class="fas fa-eye"></i> View CV</a>
+          
+            </div>
+            <div class="about-image-container">
+                <img src="umeth11.png" alt="Professional Photo" class="profile-img">
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- 🛠️ TECHNICAL SKILLS SECTION -->
+        <section id="skills">
+            <h2>TECHNICAL SKILLS</h2>
+            <div class="skills-container">
+                <span class="skill-badge"><i class="fab fa-python" style="color: #3776ab;"></i> Python</span>
+                <span class="skill-badge"><i class="fab fa-html5" style="color: #e34f26;"></i> HTML5</span>
+                <span class="skill-badge"><i class="fab fa-css3-alt" style="color: #1572b6;"></i> CSS3</span>
+                <span class="skill-badge"><i class="fab fa-java" style="color: #f89820;"></i> Java</span>
+                <span class="skill-badge"><i class="fas fa-database" style="color: #00758f;"></i> MySQL / SQL</span>
+                <span class="skill-badge"><i class="fab fa-github" style="color: #ffffff;"></i> Git & GitHub</span>
+                <span class="skill-badge"><i class="fas fa-chart-bar" style="color: #2ecc71;"></i> Data Analysis & Visualization</span>
+                <span class="skill-badge"><i class="fas fa-brain" style="color: #00f2fe;"></i> Machine Learning Fundamentals</span>
+            </div>
+        </section>
+
+        <!-- 💼 WORK EXPERIENCE SECTION -->
+        <section id="experience">
+            <h2>WORK EXPERIENCE</h2>
+            <div class="card">
+                <h3>Associate</h3>
+                <p><strong>Orel IT</strong> | 1 Year Experience</p>
+                <p>Gained hands-on professional IT industry experience working in a fast-paced environment, enhancing technical problem-solving skills, data workflows, and team collaboration.</p>
+            </div>
+        </section>
+
+        <!-- 🎓 EDUCATION SECTION -->
+        <section id="education">
+            <h2>EDUCATION BACKGROUND</h2>
+            <div class="card">
+                <h3>BSc (Hons) in Data Science</h3>
+                <p><strong>SLTC Research University</strong> | Undergraduate</p>
+                <p>Relevant Coursework: Advanced Statistics, Data Mining, Machine Learning, Database Systems, Computer Programming.</p>
+            </div>
+            <div class="card">
+                <h3>G.C.E. Advanced Level & Ordinary Level</h3>
+                <p><strong>St. Aloysius' College</strong> | Successfully Passed</p>
+                <p>Completed secondary education with strong analytical and mathematical foundation.</p>
+            </div>
+        </section>
+
+        <!-- 💻 FEATURED PROJECTS SECTION -->
+        <section id="projects">
+            <h2>FEATURED PROJECTS</h2>
+            
+            <!-- 🏨 Hotel Management System Project Card -->
+            <div class="card">
+                <div class="project-header">
+                    <span class="project-icon">🏨</span>
+                    <h3>Hotel Management System</h3>
+                </div>
+
+                <p class="project-description">
+                    A desktop-based hotel management application built with Python to handle room reservations, guest check-ins, and billing workflows.
+                </p>
+
+                <!-- 🛠️ Tech Stack Badges -->
+                <div class="skills-container" style="margin: 1rem 0;">
+                    <span class="skill-badge"><i class="fab fa-python" style="color: #3776ab;"></i> Python</span>
+                    <span class="skill-badge"><i class="fas fa-window-restore" style="color: #2ecc71;"></i> Tkinter GUI</span>
+                    <span class="skill-badge"><i class="fas fa-file-code" style="color: #66fcf1;"></i> File Handling / Database</span>
+                </div>
+
+                <!-- 🟦 Full Width View on GitHub Button -->
+                <a href="https://github.com/umethpankaja/Hotel-Management-System-Basic-" target="_blank" class="github-btn">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
+            </div>
+
+            <!-- 🌐 Personal Portfolio Project Card -->
+            <div class="card">
+                <div class="project-header">
+                    <span class="project-icon">🌐</span>
+                    <h3>Personal Cyber Portfolio Website</h3>
+                </div>
+
+                <p class="project-description">
+                    Developed a responsive, modern tech-themed portfolio featuring interactive glow effects, mouse animations, and clean UI components.
+                </p>
+
+                <div class="skills-container" style="margin: 1rem 0;">
+                    <span class="skill-badge"><i class="fab fa-html5" style="color: #e34f26;"></i> HTML5</span>
+                    <span class="skill-badge"><i class="fab fa-css3-alt" style="color: #1572b6;"></i> CSS3</span>
+                    <span class="skill-badge"><i class="fab fa-js" style="color: #f7df1e;"></i> JavaScript</span>
+                </div>
+
+                <a href="https://github.com/umethpankaja" target="_blank" class="github-btn">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
+            </div>
+        </section>
+
+        <!-- 🏆 CERTIFICATIONS & ACHIEVEMENTS (UPDATED WITH SQL COURSE & VIEW BUTTON) -->
+        <section id="achievements">
+            <h2>CERTIFICATIONS & ACHIEVEMENTS</h2>
+            <ul>
+                <li>Active Undergraduate Student at SLTC Research University</li>
+                <li>Completed Data Science & Analytics Fundamentals Workshop</li>
+                <li>Completed SQL for Data Science Course 
+                    <a href="sql certificate.pdf" target="_blank" class="cert-btn">
+                        <i class="fas fa-external-link-alt"></i> View Certificate
+                    </a>
+                </li>
+                <li>Proud Alumnus of St. Aloysius' College</li>
+            </ul>
+        </section>
+
+        <!-- 📞 CONTACT INFO SECTION -->
+        <section id="contact">
+            <h2>CONTACT_INFO</h2>
+            <p>Email: <a href="mailto:umethpankaja@gmail.com" style="color: #66fcf1; text-decoration: none;">umethpankaja@gmail.com</a></p>
+            <p>Mobile Number: <a style="color: #66fcf1; text-decoration: none;">0771559327</a></p>
+
+            <!-- 💬 Direct WhatsApp Chat Link -->
+            <div>
+                <a href="https://wa.me/94771559327" target="_blank" class="whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                </a>
+            </div>
+             
+            <div class="social-links">
+                <a href="https://github.com/umethpankaja" target="_blank">&lt; GitHub /&gt;</a>
+                <a href="https://linkedin.com/in/your-username" target="_blank">&lt; LinkedIn /&gt;</a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&lt; Developed by UMETH PANKAJA &copy; 2026 /&gt;</p>
+    </footer>
+
+    <!-- 🟢 [MOUSE ANIMATION JAVASCRIPT] -->
+    <script>
+        document.addEventListener('mousemove', function(e) {
+            const cube = document.createElement('div');
+            cube.className = 'cube-trail';
+            cube.style.left = e.clientX + 'px';
+            cube.style.top = e.clientY + 'px';
+            document.body.appendChild(cube);
+            
+            setTimeout(() => {
+                cube.remove();
+            }, 800);
+        });
+    </script>
+
+</body>
+</html>
